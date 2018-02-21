@@ -1,4 +1,4 @@
-import {logicAspect}  from '../../tooling/ModuleUnderTest';
+import {logicAspect}  from '..'; // STOP USING: '../../tooling/ModuleUnderTest';
 
 describe('logicAspect() tests', () => {
 

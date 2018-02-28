@@ -71,6 +71,12 @@
     "url": "https://github.com/KevinAst/feature-redux-logic/issues"
   },
   "homepage": "https://github.com/KevinAst/feature-redux-logic",
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!**/spec/**"
+    ]
+  },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",

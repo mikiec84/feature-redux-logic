@@ -58,6 +58,7 @@ Let's see how this all works together ...
 - [Interface Points](#interface-points)
   - [Input](#input)
   - [Exposure](#exposure)
+  - [Error Conditions](#error-conditions)
 - [API](#api)
   - [`logicAspect: Aspect`](#logicaspect-aspect)
 
@@ -272,6 +273,39 @@ process (_i.e. the inputs and outputs_) are documented here.
   (an "aspect cross-communication mechanism").  This middleware
   component must be consumed by yet another aspect (_such as
   [feature-redux]_) that in turn manages [redux].
+
+
+### Error Conditions
+
+When **feature-redux-logic** detects that no logic modules have been
+specified by any of your features, it will (by default) throw the
+following exception:
+
+```
+***ERROR*** feature-redux-logic found NO logic modules within your features
+            ... did you forget to register Feature.logic aspects in your features?
+            (please refer to the feature-redux-logic docs to see how to override this behavior).
+```
+
+Most likely this should in fact be considered an error _(for example
+you neglected to specify the logic modules within your features)_.  **The
+reasoning is**: _why would you not specify any logic modules if
+your using redux-logic?_
+
+You can change this behavior through the following configuration:
+
+```js
+logicAspect.allowNoLogic$ = true;
+```
+
+With this option enabled, when no logic modules are found,
+redux-logic will simply NOT be configured (accompanied with a WARNING
+logging probe).
+
+You can also specify your own array of logic modules in place of the
+`true` value, which will be used ONLY in the scenario where no logic
+modules were specified by your features.
+
 
 
 ## API

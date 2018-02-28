@@ -1,5 +1,6 @@
 import {createLogicMiddleware} from 'redux-logic';  // peerDependency
 import {createAspect,
+        extendAspectProperty,
         launchApp}             from 'feature-u';    // peerDependency:
 
 // our logger (integrated/activated via feature-u)

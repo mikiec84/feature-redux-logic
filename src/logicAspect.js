@@ -102,7 +102,7 @@ function assembleFeatureContent(app, activeFeatures) {
 
     // when client override is an array, interpret it as logic modules
     if (Array.isArray(this.allowNoLogic$)) {
-      logf.force('WARNING: NO logic modules were found in your Features, '+
+      logf.force('WARNING: NO logic modules were found in your Features (i.e. Feature.${this.name}), ' +
                  'but client override (logicAspect.allowNoLogic$=[{logicModules}];) ' +
                  'directed a continuation WITH specified logic modules.');
       appLogic = this.allowNoLogic$;
@@ -110,7 +110,8 @@ function assembleFeatureContent(app, activeFeatures) {
     // otherwise, we simply disable redux-logic and continue on
     else {
       logf.force('WARNING: NO logic modules were found in your Features, ' +
-                 'but client override (logicAspect.allowNoLogic$=true;) directed a continuation WITHOUT redux-logic.');
+                 'but client override (logicAspect.allowNoLogic$=true;) ' +
+                 'directed a continuation WITHOUT redux-logic.');
     }
   }
 

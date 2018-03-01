@@ -1,8 +1,8 @@
-import {launchApp,                 // ?? just needed while our logs are on
-        createFeature}  from  'feature-u';
+import {createFeature}  from  'feature-u';
 import {logicAspect}    from '..'; // modules under test
 
 // temporarly turn on logging (just for fun)
+// ... must include launchApp on this
 // launchApp.diag.logf.enable();
 
 describe('logicAspect() tests', () => {
@@ -37,7 +37,7 @@ describe('logicAspect() tests', () => {
       const feature = createFeature({
         name:  'feature1',
         logic: "I'm NOT an array",
-      })
+      });
 
       expect(logicAspect.validateFeatureContent(feature))
         .toMatch(/must be an array/);
@@ -48,7 +48,7 @@ describe('logicAspect() tests', () => {
       const feature = createFeature({
         name:  'feature1',
         logic: ['mock', 'logic', 'modules'],
-      })
+      });
 
       expect(logicAspect.validateFeatureContent(feature))
         .toBe(null);

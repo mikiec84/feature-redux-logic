@@ -81,6 +81,9 @@ function assembleFeatureContent(app, activeFeatures) {
       accum = [...accum, ...feature[this.name]];
       hookSummary.push(`\n  Feature.name:${feature.name} <-- promotes ${this.name} AspectContent`);
     }
+    else {
+      hookSummary.push(`\n  Feature.name:${feature.name}`);
+    }
     return accum;
   }, []);
 

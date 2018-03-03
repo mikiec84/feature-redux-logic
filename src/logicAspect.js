@@ -32,9 +32,9 @@ function genesis() {
   logf('genesis() registering internal Aspect properties');
 
   extendAspectProperty('allowNoLogic$');          // Aspect.allowNoLogic$: true || [{logicModules}]
-                                                  // ... AI: technically this is for reducerAspect only (if the API ever supports this)
+                                                  // ... AI: technically this is for logicAspect only (if the API ever supports this)
   extendAspectProperty('createLogicMiddleware$'); // Aspect.createLogicMiddleware$(app, appLogic): reduxMiddleware
-                                                  // ... AI: technically this is for reducerAspect only (if the API ever supports this)
+                                                  // ... AI: technically this is for logicAspect only (if the API ever supports this)
 }
 
 

@@ -296,7 +296,7 @@ your using redux-logic?_
 You can change this behavior through the following configuration:
 
 ```js
-logicAspect.allowNoLogic$ = true;
+logicAspect.config.allowNoLogic$ = true;
 ```
 
 With this option enabled, when no logic modules are found,

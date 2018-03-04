@@ -1,6 +1,5 @@
 import {createLogicMiddleware} from 'redux-logic';  // peerDependency
 import {createAspect,
-        extendAspectProperty,
         launchApp}             from 'feature-u';    // peerDependency:
 
 // our logger (integrated/activated via feature-u)
@@ -9,33 +8,14 @@ const logf = launchApp.diag.logf.newLogger('- ***feature-redux-logic*** logicAsp
 // NOTE: See README for complete description
 export default createAspect({
   name: 'logic',
-  genesis,
   validateFeatureContent,
   assembleFeatureContent,
-  createLogicMiddleware$,
   getReduxMiddleware,
+  config: {
+    allowNoLogic$: false,   // PUBLIC: client override to: true || [{logicModules}]
+    createLogicMiddleware$, // HIDDEN: createLogicMiddleware$(app, appLogic): reduxMiddleware
+  },
 });
-
-
-/**
- * Register feature-redux-logic proprietary Aspect APIs (required to
- * pass feature-u validation).
- * This must occur early in the life-cycle (i.e. this method) to
- * guarantee the new API is available during feature-u validation.
- *
- * @return {string} NONE FOR US ... an error message when self is in an invalid state
- * (falsy when valid).
- *
- * @private
- */
-function genesis() {
-  logf('genesis() registering internal Aspect properties');
-
-  extendAspectProperty('allowNoLogic$');          // Aspect.allowNoLogic$: true || [{logicModules}]
-                                                  // ... AI: technically this is for logicAspect only (if the API ever supports this)
-  extendAspectProperty('createLogicMiddleware$'); // Aspect.createLogicMiddleware$(app, appLogic): reduxMiddleware
-                                                  // ... AI: technically this is for logicAspect only (if the API ever supports this)
-}
 
 
 /**
@@ -97,23 +77,23 @@ function assembleFeatureContent(app, activeFeatures) {
   else {
 
     // by default, this is an error condition (when NOT overridden by client)
-    if (!this.allowNoLogic$) {
+    if (!this.config.allowNoLogic$) {
       throw new Error('***ERROR*** feature-redux-logic found NO logic modules within your features ' +
                       `... did you forget to register Feature.${this.name} aspects in your features? ` +
                       '(please refer to the feature-redux-logic docs to see how to override this behavior).');
     }
 
     // when client override is an array, interpret it as logic modules
-    if (Array.isArray(this.allowNoLogic$)) {
+    if (Array.isArray(this.config.allowNoLogic$)) {
       logf.force('WARNING: NO logic modules were found in your Features (i.e. Feature.${this.name}), ' +
-                 'but client override (logicAspect.allowNoLogic$=[{logicModules}];) ' +
+                 'but client override (logicAspect.config.allowNoLogic$=[{logicModules}];) ' +
                  'directed a continuation WITH specified logic modules.');
-      appLogic = this.allowNoLogic$;
+      appLogic = this.config.allowNoLogic$;
     }
     // otherwise, we simply disable redux-logic and continue on
     else {
       logf.force('WARNING: NO logic modules were found in your Features, ' +
-                 'but client override (logicAspect.allowNoLogic$=true;) ' +
+                 'but client override (logicAspect.config.allowNoLogic$=truthy;) ' +
                  'directed a continuation WITHOUT redux-logic.');
     }
   }
@@ -122,8 +102,8 @@ function assembleFeatureContent(app, activeFeatures) {
   // ... conditionally when we have logic modules
   // ... retained in self for promotion to feature-redux plugin
   if (appLogic.length > 0) {
-    // ... accomplished in internal micro method (a defensive measure to allow easier overriding by client)
-    this.logicMiddleware = this.createLogicMiddleware$(app, appLogic);
+    // ... accomplished in internal config micro function (a defensive measure to allow easier overriding by client)
+    this.logicMiddleware = this.config.createLogicMiddleware$(app, appLogic);
   }
   // if we have no logic ... we have no middleware
   else {
@@ -133,8 +113,8 @@ function assembleFeatureContent(app, activeFeatures) {
 
 
 /**
- * An internal micro method that creates/returns the redux middleware
- * for redux-logic.
+ * An internal config micro function that creates/returns the
+ * redux middleware for redux-logic.
  *
  * This logic is broken out in this internal method as a defensive
  * measure to make it easier for a client to override (if needed for

@@ -17,19 +17,6 @@ describe('logicAspect() tests', () => {
   });
 
 
-  describe('genesis()', () => {
-
-    logicAspect.genesis();
-
-    const noOpTest = "can't access isAspectProperty() ... just running code :-(";
-    test('verify extendAspectProperty()', () => {
-      expect(noOpTest)
-        .toBe(noOpTest);
-    });
-
-  });
-
-
   describe('validateFeatureContent()', () => {
 
     test('must be an array', () => {
@@ -66,10 +53,10 @@ describe('logicAspect() tests', () => {
 
     describe('no logic modules (OVERRIDE true)', () => {
       beforeEach(() => {
-        logicAspect.allowNoLogic$ = true;
+        logicAspect.config.allowNoLogic$ = true;
       });      
       afterEach(() => {
-        logicAspect.allowNoLogic$ = false;
+        logicAspect.config.allowNoLogic$ = false;
       });
       test('expecting getReduxMiddleware() to be null', () => {
         logicAspect.assembleFeatureContent('simulated app', []);
@@ -80,10 +67,10 @@ describe('logicAspect() tests', () => {
 
     describe('no logic modules (OVERRIDE array)', () => {
       beforeEach(() => {
-        logicAspect.allowNoLogic$ = ['simulated', 'logic'];
+        logicAspect.config.allowNoLogic$ = ['simulated', 'logic'];
       });      
       afterEach(() => {
-        logicAspect.allowNoLogic$ = false;
+        logicAspect.config.allowNoLogic$ = false;
       });
       test('expecting getReduxMiddleware() to be non-null', () => {
         logicAspect.assembleFeatureContent('simulated app', []);

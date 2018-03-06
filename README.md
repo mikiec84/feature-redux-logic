@@ -19,17 +19,11 @@ run-time stack.
 
 
 <!--- Badges for CI Builds ---> 
+[![Build Status](https://travis-ci.org/KevinAst/feature-redux-logic.svg?branch=master)](https://travis-ci.org/KevinAst/feature-redux-logic)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/81530601c0f2449481882ac285add698)](https://www.codacy.com/app/KevinAst/feature-redux-logic?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=KevinAst/feature-redux-logic&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/81530601c0f2449481882ac285add698)](https://www.codacy.com/app/KevinAst/feature-redux-logic?utm_source=github.com&utm_medium=referral&utm_content=KevinAst/feature-redux-logic&utm_campaign=Badge_Coverage)
 [![Known Vulnerabilities](https://snyk.io/test/github/kevinast/feature-redux-logic/badge.svg?targetFile=package.json)](https://snyk.io/test/github/kevinast/feature-redux-logic?targetFile=package.json)
 [![NPM Version Badge](https://img.shields.io/npm/v/feature-redux-logic.svg)](https://www.npmjs.com/package/feature-redux-logic)
-<!--- TODO Badges
-- CI Build: ?? WHEN CI Build In place
-- GRADE:    DONE (see above)
-- CODE COV: DONE (see above)
-- Vulnerab: DONE (see above)
-- NPM:      DONE (see above)
----> 
 
 
 **Overview:**
